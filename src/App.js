@@ -3,8 +3,6 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import NoMatch from "./components/NoMatch";
 import Home from "./components/Home";
 import PreLoader from "./components/PreLoader";
-// eslint-disable-next-line
-import logo from "./logo.svg";
 import "./App.css";
 
 export const appRoutes = [
@@ -15,11 +13,6 @@ export const appRoutes = [
   },
   {
     path: "/users",
-    layout: lazy(() => import("./components/Layout")),
-    component: lazy(() => import("./components/UsersData")),
-  },
-  {
-    path: "/about",
     layout: lazy(() => import("./components/Layout")),
     component: lazy(() => import("./components/UsersData")),
   }

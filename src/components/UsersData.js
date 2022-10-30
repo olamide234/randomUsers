@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Api from "../api/Api";
-import PreLoader from './PreLoader'
-import ErrorPage from './ErrorPage'
+import PreLoader from "./PreLoader";
+import ErrorPage from "./ErrorPage";
+import "../App.css";
 
 //api call
-export const getUsers = async () => {
+export const getUsers = async ({ queryKey }) => {
+  const { pageParam } = queryKey[1];
   try {
-    const response = await Api.get("/api/");
+    const response = await Api.get(`/api/?page=${pageParam}&results=10`);
     return response;
   } catch (error) {
     return error;
@@ -15,11 +17,82 @@ export const getUsers = async () => {
 };
 
 export default function UsersData() {
-  const { data: usersData, isLoading: usersLoading, isError } = useQuery(
-    ["view-students"],
-    getUsers
+  const totalPages = 9;
+  const [page, setPage] = useState(1);
+  const {
+    data: usersData,
+    isLoading: usersLoading,
+    isError,
+  } = useQuery(["view-students", { page: page }], getUsers);
+  const usersInfo = usersData?.data?.results;
+  return (
+    <>
+      {usersLoading ? (
+        <PreLoader />
+      ) : usersInfo?.length != 0 ? (
+        <div className="article">
+          {usersInfo?.map((user, index) => (
+            <div className="article-box">
+                <div className='image-container'><div><img src={user?.picture?.large} alt="profile_picture" /></div></div>
+              
+              <div className="article-content">
+                <h4 className="article-author u-mb-small">
+                  {user.name.title} {user.name.first} {user.name.last}
+                </h4>
+                <p className="article-excerpt ">
+                  A {user.dob.age} years old {user.gender}, living in{" "}
+                  {user.location.state}, {user.location.country}. You can reach
+                  me via email at {user.email} and also {user.phone} on cell
+                  phone.
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>No available members</div>
+      )}
+      <div className="page-navigation">
+        <button
+          style={{
+            backgroundColor: "#909877",
+            padding: "0.5rem 2rem",
+            borderRadius: "8px",
+            marginRight: "1rem",
+          }}
+          disabled={page === 1}
+          onClick={() => {
+            setPage(page - 1);
+          }}
+        >
+          {" "}
+          Prev
+        </button>
+        <span>
+          Pages: {page} 0f {totalPages}
+        </span>
+        <button
+          style={{
+            backgroundColor: "#909877",
+            padding: "0.5rem 2rem",
+            borderRadius: "8px",
+            marginLeft: "1rem",
+          }}
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          {" "}
+          Next
+        </button>
+      </div>
+    </>
   );
-  const usersInfo = JSON.stringify(usersData)
-  console.log(usersData);
-  return <>{usersLoading ? <PreLoader /> : <div>Users are available: {usersInfo}</div>}</>;
 }
+
+// ) : (
+//     state?.lessons?.map((lesson) => {
+//       return (
+//         <LessonCardCreation lesson_title={lesson.lesson_title} lesson_contents={lesson.lesson_contents} />
+//       )
+//     })
+//   )}

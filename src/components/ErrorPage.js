@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function ErrorPage() {
-    return (
-        <div>
-            Error Page
-        </div>
-    )
+export default class ErrorPage extends Component {
+    render() {
+        return (
+            <div>
+                
+            </div>
+        )
+    }
 }
