@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-Project deployed url: https://olamz-randomusers.netlify.app
+Project deployed url: https://olamz-randomusers.netlify.app \
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
