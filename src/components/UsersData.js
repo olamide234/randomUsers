@@ -69,7 +69,7 @@ export default function UsersData() {
           Prev
         </button>
         <span>
-          Pages: {page} 0f {totalPages}
+          Pages: {page} of {totalPages}
         </span>
         <button
           style={{
