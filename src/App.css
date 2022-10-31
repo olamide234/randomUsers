@@ -90,7 +90,7 @@ li a {
   padding-bottom: 1.4rem;
   position: relative;
 }
-li a:hover {
+li a:hover, .currentLocation {
   color: var(--dark-blue);
 }
 .nav-ul li a::before {
