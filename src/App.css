@@ -92,7 +92,9 @@ li a {
 }
 li a:hover, .currentLocation {
   color: var(--dark-blue);
+  font-weight: 500;
 }
+
 .nav-ul li a::before {
   content: "";
   position: absolute;

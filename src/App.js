@@ -42,7 +42,7 @@ function App() {
           );
         })}
         <Route path="/" element={<Home />} />
-        <Route path="404" element={<NoMatch />} />
+        <Route path="404" element={<NoMatch homeRoute="/"/>} />
         <Route path="*" element={<NoMatch homeRoute="/" />} />
       </Routes>
     </Router>
