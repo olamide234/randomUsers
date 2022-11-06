@@ -3,6 +3,8 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import NoMatch from "./components/NoMatch";
 import Home from "./components/Home";
 import PreLoader from "./components/PreLoader";
+import ErrorPage from "./components/ErrorPage";
+import ErrorBoundary from "./components/ErrorBoundary"
 import "./App.css";
 
 export const appRoutes = [
@@ -41,6 +43,14 @@ function App() {
             />
           );
         })}
+        <Route
+          path="/errorPage"
+          element={
+            <ErrorBoundary>
+              <ErrorPage person={{}} />
+            </ErrorBoundary>
+          }
+        />
         <Route path="/" element={<Home />} />
         <Route path="404" element={<NoMatch homeRoute="/"/>} />
         <Route path="*" element={<NoMatch homeRoute="/" />} />
