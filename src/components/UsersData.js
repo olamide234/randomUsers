@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Api from "../api/Api";
 import PreLoader from "./PreLoader";
-import ErrorPage from "./ErrorPage";
 import "../App.css";
 
 //api call
@@ -19,6 +18,11 @@ export const getUsers = async ({ queryKey }) => {
 export default function UsersData() {
   const totalPages = 9;
   const [page, setPage] = useState(1);
+  const pagesArray= []
+  for (let i=1; i<=totalPages; i++){
+    pagesArray.push(i)
+  }
+  console.log(pagesArray)
   const {
     data: usersData,
     isLoading: usersLoading,
@@ -58,7 +62,7 @@ export default function UsersData() {
             backgroundColor: "#909877",
             padding: "0.5rem 2rem",
             borderRadius: "8px",
-            marginRight: "1rem",
+            marginRight: "0.3rem",
           }}
           disabled={page === 1}
           onClick={() => {
@@ -68,15 +72,29 @@ export default function UsersData() {
           {" "}
           Prev
         </button>
-        <span>
+        {pagesArray.map((pageNum)=><button
+          style={{
+            backgroundColor: "#909877",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            marginRight: "0.3rem",
+          }}
+          disabled={page === pageNum}
+          onClick={() => {
+            setPage(pageNum);
+          }}
+        >
+          {pageNum}
+        </button>)}
+        {/* <span>
           Pages: {page} of {totalPages}
-        </span>
+        </span> */}
         <button
           style={{
             backgroundColor: "#909877",
             padding: "0.5rem 2rem",
             borderRadius: "8px",
-            marginLeft: "1rem",
+            // marginLeft: "1rem",
           }}
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
